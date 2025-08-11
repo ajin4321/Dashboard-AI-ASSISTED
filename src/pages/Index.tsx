@@ -9,7 +9,7 @@ import { useState, useMemo } from 'react';
 import { toast } from '@/hooks/use-toast';
 
 const Index = () => {
-  const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/1P7KRL_iTksDatBpSdRFB8erM8JNiyw7wZcP5P_yWA38/export?format=csv";
+const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/1P7KRL_iTksDatBpSdRFB8erM8JNiyw7wZcP5P_yWA38/export?format=csv";
   const { data, loading, error, refetch } = useGoogleSheets(GOOGLE_SHEETS_CSV_URL);
   const [refreshing, setRefreshing] = useState(false);
 
