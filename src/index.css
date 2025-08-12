@@ -248,4 +248,11 @@
     border-color: hsl(var(--neon-purple) / 0.4);
     box-shadow: var(--shadow-glow);
   }
+
+  .fixed-refresh-button {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
 }

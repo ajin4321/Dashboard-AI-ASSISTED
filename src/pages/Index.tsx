@@ -102,20 +102,22 @@ const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/1P7KRL_iTk
       <div className="flex items-center justify-between">
         <div>
           <h1 className="cyber-title text-4xl md:text-5xl font-bold mb-2">
-            CYBER DASHBOARD
+            DASHBOARD AI ASSISTED
           </h1>
           <p className="text-muted-foreground font-rajdhani text-lg">
             Real-time business intelligence • {data.length} records loaded
           </p>
         </div>
-        <Button 
-          onClick={handleRefresh}
-          disabled={refreshing}
-          className="btn-neon"
-        >
-          <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
-          Refresh Data
-        </Button>
+        <div className="fixed-refresh-button">
+          <Button 
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="btn-neon"
+          >
+            <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+            Refresh Data
+          </Button>
+        </div>
       </div>
 
       {/* Metrics Grid */}
