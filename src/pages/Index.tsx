@@ -3,6 +3,7 @@ import { MetricCard } from '@/components/MetricCard';
 import { DataTable } from '@/components/DataTable';
 import { RevenueChart } from '@/components/RevenueChart';
 import { StatusDistribution } from '@/components/StatusDistribution';
+import { ChatBot } from '@/components/ChatBot';
 import { Button } from '@/components/ui/button';
 import { RefreshCw, Users, DollarSign, Camera, Mail, TrendingUp } from 'lucide-react';
 import { useState, useMemo } from 'react';
@@ -166,6 +167,9 @@ const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/1P7KRL_iTk
 
       {/* Data Table */}
       <DataTable data={data} />
+
+      {/* ChatBot */}
+      <ChatBot onDataUpdate={refetch} />
     </div>
   );
 };
