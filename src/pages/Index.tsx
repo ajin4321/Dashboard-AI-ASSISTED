@@ -29,8 +29,8 @@ const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/1P7KRL_iTk
     }, 0);
 
     const activeClients = data.filter(client => 
-      client.Status.toLowerCase().includes('active') || 
-      client.Status.toLowerCase().includes('completed')
+      client.Status.toLowerCase().includes('inprogress') || 
+      client.Status.toLowerCase().includes('delivered')
     ).length;
 
     const averagePrice = totalRevenue / totalClients;
