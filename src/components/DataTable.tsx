@@ -38,7 +38,7 @@ export const DataTable = ({ data }: DataTableProps) => {
       <div className="overflow-x-auto">
         <div className="data-grid min-w-[600px]">
           <div className="grid grid-cols-5 gap-4 p-4 font-semibold text-sm text-neon-purple border-b border-border">
-            <div>Client</div>
+            <div className="px-2">Client</div>
             <div className="text-center">Headshots</div>
             <div>Price</div>
             <div className="text-center">Status</div>
@@ -71,7 +71,7 @@ export const DataTable = ({ data }: DataTableProps) => {
                     {client.Status}
                   </Badge>
                 </div>
-                <div className="text-muted-foreground whitespace-nowrap overflow-hidden text-ellipsis font-mono text-xs">
+                <div className="text-muted-foreground overflow-x-auto font-mono text-xs">
                   {client.Email}
                 </div>
               </div>
