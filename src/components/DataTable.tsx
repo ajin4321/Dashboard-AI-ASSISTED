@@ -41,7 +41,7 @@ export const DataTable = ({ data }: DataTableProps) => {
             <div>Client</div>
             <div className="text-center">Headshots</div>
             <div>Price</div>
-            <div>Status</div>
+            <div className="text-center">Status</div>
             <div>Email</div>
           </div>
           
@@ -60,7 +60,7 @@ export const DataTable = ({ data }: DataTableProps) => {
                 <div className="text-neon-green font-mono">
                   {formatPrice(client.Price)}
                 </div>
-                <div>
+                <div className="flex justify-center">
                   <Badge 
                     variant="outline" 
                     className={cn(
@@ -71,7 +71,7 @@ export const DataTable = ({ data }: DataTableProps) => {
                     {client.Status}
                   </Badge>
                 </div>
-                <div className="text-muted-foreground overflow-x-auto font-mono text-xs">
+                <div className="text-muted-foreground whitespace-nowrap overflow-hidden text-ellipsis font-mono text-xs">
                   {client.Email}
                 </div>
               </div>
