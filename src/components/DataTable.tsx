@@ -36,32 +36,32 @@ export const DataTable = ({ data }: DataTableProps) => {
       </div>
       
       <div className="overflow-x-auto">
-        <div className="data-grid min-w-[600px]">
-          <div className="grid gap-4 p-4 font-semibold text-sm text-neon-purple border-b border-border" style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}>
-            <div className="px-2">Client</div>
-            <div className="text-center">Headshots</div>
-            <div>Price</div>
-            <div className="text-center">Status</div>
-            <div>Email</div>
+        <div className="data-grid min-w-[600px] lg:min-w-0">
+          <div className="grid gap-4 lg:gap-8 p-4 lg:p-6 font-semibold text-sm text-neon-purple border-b border-border" style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}>
+            <div className="px-2 lg:px-4">Client</div>
+            <div className="text-center lg:px-3">Headshots</div>
+            <div className="lg:px-3">Price</div>
+            <div className="text-center lg:px-3">Status</div>
+            <div className="lg:px-4">Email</div>
           </div>
           
           <div className="max-h-96 overflow-y-auto">
             {data.map((client, index) => (
               <div 
                 key={index} 
-                className="data-row grid gap-4 p-4 text-sm hover:bg-neon-cyan/5" 
+                className="data-row grid gap-4 lg:gap-8 p-4 lg:p-6 text-sm hover:bg-neon-cyan/5 border-b border-border/20" 
                 style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}
               >
-                <div className="font-medium text-foreground overflow-hidden">
-                  <div className="truncate pr-2">{client.Clients}</div>
+                <div className="font-medium text-foreground overflow-hidden lg:px-4">
+                  <div className="truncate pr-2 lg:pr-4">{client.Clients}</div>
                 </div>
-                <div className="flex justify-center text-neon-cyan font-mono">
+                <div className="flex justify-center text-neon-cyan font-mono lg:px-3">
                   {client['No. of Headshots']}
                 </div>
-                <div className="text-neon-green font-mono">
+                <div className="text-neon-green font-mono lg:px-3">
                   {formatPrice(client.Price)}
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center lg:px-3">
                   <Badge 
                     variant="outline" 
                     className={cn(
@@ -72,7 +72,7 @@ export const DataTable = ({ data }: DataTableProps) => {
                     {client.Status}
                   </Badge>
                 </div>
-                <div className="text-muted-foreground overflow-x-auto font-mono text-xs">
+                <div className="text-muted-foreground overflow-x-auto font-mono text-xs lg:px-4">
                   {client.Email}
                 </div>
               </div>
