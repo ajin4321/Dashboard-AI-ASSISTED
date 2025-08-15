@@ -131,7 +131,7 @@ export const ChatBot = ({ onDataUpdate }: ChatBotProps) => {
       const deltaY = resizeRef.current.startY - e.clientY;
       
       const newWidth = Math.min(Math.max(resizeRef.current.startWidth + deltaX, 300), 600);
-      const newHeight = Math.min(Math.max(resizeRef.current.startHeight + deltaY, 400), 700);
+      const newHeight = Math.min(Math.max(resizeRef.current.startHeight + deltaY, 400), 500);
       
       setChatSize({ width: newWidth, height: newHeight });
     };
