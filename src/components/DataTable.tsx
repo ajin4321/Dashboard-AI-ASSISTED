@@ -39,7 +39,7 @@ export const DataTable = ({ data }: DataTableProps) => {
         <div className="data-grid min-w-[600px]">
           <div className="grid grid-cols-5 gap-4 p-4 font-semibold text-sm text-neon-purple border-b border-border">
             <div>Client</div>
-            <div>Headshots</div>
+            <div className="text-center">Headshots</div>
             <div>Price</div>
             <div>Status</div>
             <div>Email</div>
@@ -51,10 +51,10 @@ export const DataTable = ({ data }: DataTableProps) => {
                 key={index} 
                 className="data-row grid grid-cols-5 gap-4 p-4 text-sm hover:bg-neon-cyan/5"
               >
-                <div className="font-medium text-foreground break-words">
+                <div className="font-medium text-foreground whitespace-nowrap">
                   {client.Clients}
                 </div>
-                <div className="text-neon-cyan font-mono">
+                <div className="flex justify-center text-neon-cyan font-mono">
                   {client['No. of Headshots']}
                 </div>
                 <div className="text-neon-green font-mono">
@@ -71,7 +71,7 @@ export const DataTable = ({ data }: DataTableProps) => {
                     {client.Status}
                   </Badge>
                 </div>
-                <div className="text-muted-foreground break-words font-mono text-xs">
+                <div className="text-muted-foreground overflow-x-auto font-mono text-xs">
                   {client.Email}
                 </div>
               </div>

@@ -115,7 +115,6 @@ const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/1P7KRL_iTk
             className="btn-neon"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
-            Refresh Data
           </Button>
         </div>
       </div>
