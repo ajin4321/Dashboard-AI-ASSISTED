@@ -37,12 +37,12 @@ export const DataTable = ({ data }: DataTableProps) => {
       
       <div className="overflow-x-auto">
         <div className="data-grid min-w-[600px]">
-          <div className="grid gap-4 p-4 font-semibold text-sm text-neon-purple border-b border-border" style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}>
-            <div className="px-2">Client</div>
+          <div className="grid gap-6 md:gap-8 lg:gap-12 p-4 md:p-6 lg:p-8 font-semibold text-sm text-neon-purple border-b border-border" style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}>
+            <div className="px-2 md:px-4">Client</div>
             <div className="text-center">Headshots</div>
-            <div>Price</div>
+            <div className="md:px-2">Price</div>
             <div className="text-center">Status</div>
-            <div>Email</div>
+            <div className="md:px-2">Email</div>
           </div>
           
           <div className="max-h-96 overflow-y-auto">
