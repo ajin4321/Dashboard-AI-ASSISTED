@@ -1,0 +1,302 @@
+{
+  "name": "Lovable Dasboard Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "=You are an AI agent that manages information in a Google Sheet. Your job is to read incoming chat messages, review the current sheet data, and update any relevant information as needed.\n\n## Core Process\n\n1. **Read the message**: Understand what the user is asking for or reporting\n2. **Review the sheet**: Use the read tool to get current data from all relevant sections\n3. **Analyze**: Determine what information needs to be updated, added, or modified\n4. **Update**: Use the update tool to make necessary changes\n5. **Confirm**: Briefly explain what you updated\n\n## Available Tools\n\n- `read_google_sheet`: Retrieves current data from the Google Sheet\n- `update_google_sheet`: Updates specific cells or ranges in the sheet\ngmail sent message tool : sent the message whenever the user ask for\n\n## Guidelines\n\n- Always read the sheet first before making any updates\n- Only update information that has actually changed or is newly provided\n- Be precise with your updates – don’t modify unrelated data\n- If the message is unclear, ask for clarification before updating\n- Provide a brief summary of what you updated after making changes\n\n## Response Format\n\n1. Read the current sheet data\n2. Identify what needs updating based on the message\n3. Make the necessary updates\n4. Confirm: \"Updated [specific information] in the sheet.\"\n\nStay focused, efficient, and accurate in your updates.\n\nWhatever the message you will be senting will be from the side of Ajin Thampi"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        -32
+      ],
+      "id": "c49ec013-f34e-4a4c-b94d-3707d855840b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        176
+      ],
+      "id": "94db68c1-75ab-45f5-895d-c77bb157f0f7",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "fumbzfyCxI2RNYAe",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1P7KRL_iTksDatBpSdRFB8erM8JNiyw7wZcP5P_yWA38/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2014134836,
+          "mode": "list",
+          "cachedResultName": "set it as a table",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P7KRL_iTksDatBpSdRFB8erM8JNiyw7wZcP5P_yWA38/edit#gid=2014134836"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Clients": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Clients__using_to_match_', ``, 'string') }}",
+            "No. of Headshots": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('No__of_Headshots', ``, 'string') }}",
+            "Price": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Price', ``, 'string') }}",
+            "Status": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Status', ``, 'string') }}",
+            "Email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Clients"
+          ],
+          "schema": [
+            {
+              "id": "Clients",
+              "displayName": "Clients",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "No. of Headshots",
+              "displayName": "No. of Headshots",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Price",
+              "displayName": "Price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        112,
+        176
+      ],
+      "id": "2bbe9b08-ee56-4a57-83e7-645ea956c6c0",
+      "name": "Update Row",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4KTtWtkRZCVxwLur",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1P7KRL_iTksDatBpSdRFB8erM8JNiyw7wZcP5P_yWA38/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2014134836,
+          "mode": "list",
+          "cachedResultName": "set it as a table",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1P7KRL_iTksDatBpSdRFB8erM8JNiyw7wZcP5P_yWA38/edit#gid=2014134836"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        288,
+        192
+      ],
+      "id": "34d864ed-d8bf-48d4-b7d3-e6e48e093745",
+      "name": "Customer Doc",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4KTtWtkRZCVxwLur",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        496,
+        176
+      ],
+      "id": "6665c63a-bbce-44d8-80b2-2df660b62caa",
+      "name": "Send a message in Gmail",
+      "webhookId": "b82ae5cb-194f-41e7-a413-7637cb10206c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "IOoOI78EtBAmJV6k",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Dashboard",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -336,
+        -32
+      ],
+      "id": "ee371b8f-2924-4a53-8348-db630e9b8d57",
+      "name": "Dashboard Chat",
+      "webhookId": "04be46af-a1bd-4c3e-9ca7-f8877e03afd1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        448,
+        -32
+      ],
+      "id": "63143f23-031c-4aa6-a20f-7f20be904b10",
+      "name": "Respond"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Row": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Doc": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dashboard Chat": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b6db7283-d385-47e7-a760-f29d95c92612",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e7cd73d9cb85fcdec70e9e4ee02d2a8908615542947b9ec037dcea7b9dbeb9af"
+  },
+  "id": "Yu07OvBviVgKD6jp",
+  "tags": []
+}
