@@ -37,7 +37,7 @@ export const DataTable = ({ data }: DataTableProps) => {
       
       <div className="overflow-x-auto">
         <div className="data-grid min-w-[600px]">
-          <div className="grid gap-2 p-4 font-semibold text-sm text-neon-purple border-b border-border" style={{ gridTemplateColumns: 'minmax(150px, auto) 80px 80px 90px minmax(120px, 1fr)' }}>
+          <div className="grid gap-4 p-4 font-semibold text-sm text-neon-purple border-b border-border" style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}>
             <div className="px-2">Client</div>
             <div className="text-center">Headshots</div>
             <div>Price</div>
@@ -49,11 +49,11 @@ export const DataTable = ({ data }: DataTableProps) => {
             {data.map((client, index) => (
               <div 
                 key={index} 
-                className="data-row grid gap-2 p-4 text-sm hover:bg-neon-cyan/5" 
-                style={{ gridTemplateColumns: 'minmax(150px, auto) 80px 80px 90px minmax(120px, 1fr)' }}
+                className="data-row grid gap-4 p-4 text-sm hover:bg-neon-cyan/5" 
+                style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}
               >
-                <div className="font-medium text-foreground break-words">
-                  {client.Clients}
+                <div className="font-medium text-foreground overflow-hidden">
+                  <div className="truncate pr-2">{client.Clients}</div>
                 </div>
                 <div className="flex justify-center text-neon-cyan font-mono">
                   {client['No. of Headshots']}
