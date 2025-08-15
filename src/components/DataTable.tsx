@@ -37,7 +37,7 @@ export const DataTable = ({ data }: DataTableProps) => {
       
       <div className="overflow-x-auto">
         <div className="data-grid min-w-[600px]">
-          <div className="grid grid-cols-5 gap-4 p-4 font-semibold text-sm text-neon-purple border-b border-border">
+          <div className="grid gap-4 p-4 font-semibold text-sm text-neon-purple border-b border-border" style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}>
             <div>Client</div>
             <div className="text-center">Headshots</div>
             <div>Price</div>
@@ -49,7 +49,8 @@ export const DataTable = ({ data }: DataTableProps) => {
             {data.map((client, index) => (
               <div 
                 key={index} 
-                className="data-row grid grid-cols-5 gap-4 p-4 text-sm hover:bg-neon-cyan/5"
+                className="data-row grid gap-4 p-4 text-sm hover:bg-neon-cyan/5" 
+                style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}
               >
                 <div className="font-medium text-foreground whitespace-nowrap">
                   {client.Clients}
