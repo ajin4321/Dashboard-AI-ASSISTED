@@ -51,7 +51,7 @@ export const DataTable = ({ data }: DataTableProps) => {
                 key={index} 
                 className="data-row grid grid-cols-5 gap-4 p-4 text-sm hover:bg-neon-cyan/5"
               >
-                <div className="font-medium text-foreground truncate">
+                <div className="font-medium text-foreground break-words">
                   {client.Clients}
                 </div>
                 <div className="text-neon-cyan font-mono">
@@ -71,7 +71,7 @@ export const DataTable = ({ data }: DataTableProps) => {
                     {client.Status}
                   </Badge>
                 </div>
-                <div className="text-muted-foreground truncate font-mono text-xs">
+                <div className="text-muted-foreground break-words font-mono text-xs">
                   {client.Email}
                 </div>
               </div>
