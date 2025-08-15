@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Send, Bot, User, MessageCircle } from 'lucide-react';
+import { Send, Bot, User, MessageCircle, GripVertical } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 
 interface Message {
@@ -29,6 +29,10 @@ export const ChatBot = ({ onDataUpdate }: ChatBotProps) => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [chatSize, setChatSize] = useState({ width: 384, height: 500 });
+  const [isResizing, setIsResizing] = useState(false);
+  const chatRef = useRef<HTMLDivElement>(null);
+  const resizeRef = useRef<{ startX: number; startY: number; startWidth: number; startHeight: number } | null>(null);
 
   const sendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -110,6 +114,39 @@ export const ChatBot = ({ onDataUpdate }: ChatBotProps) => {
     }
   };
 
+  const handleResizeStart = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsResizing(true);
+    resizeRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      startWidth: chatSize.width,
+      startHeight: chatSize.height
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!resizeRef.current) return;
+      
+      const deltaX = resizeRef.current.startX - e.clientX;
+      const deltaY = resizeRef.current.startY - e.clientY;
+      
+      const newWidth = Math.min(Math.max(resizeRef.current.startWidth + deltaX, 300), 600);
+      const newHeight = Math.min(Math.max(resizeRef.current.startHeight + deltaY, 400), 700);
+      
+      setChatSize({ width: newWidth, height: newHeight });
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+      resizeRef.current = null;
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  }, [chatSize]);
+
   if (!isOpen) {
     return (
       <div className="fixed bottom-6 right-6 z-50">
@@ -124,11 +161,22 @@ export const ChatBot = ({ onDataUpdate }: ChatBotProps) => {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <Card className="card-cyber w-96 h-[500px] flex flex-col shadow-2xl border-neon-cyan/30">
+    <div className="fixed bottom-6 right-6 z-50" ref={chatRef}>
+      <Card 
+        className="card-cyber flex flex-col shadow-2xl border-neon-cyan/30 relative"
+        style={{ width: `${chatSize.width}px`, height: `${chatSize.height}px` }}
+      >
+        {/* Resize Handle */}
+        <div
+          className="absolute top-2 left-2 cursor-nw-resize p-1 rounded text-neon-cyan/50 hover:text-neon-cyan transition-colors"
+          onMouseDown={handleResizeStart}
+        >
+          <GripVertical className="w-4 h-4" />
+        </div>
+        
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-neon-cyan/20">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ml-6">
             <div className="pulse-glow w-8 h-8 rounded-full bg-neon-cyan/20 flex items-center justify-center">
               <Bot className="w-4 h-4 text-neon-cyan" />
             </div>
