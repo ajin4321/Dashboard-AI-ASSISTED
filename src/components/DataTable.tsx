@@ -52,8 +52,8 @@ export const DataTable = ({ data }: DataTableProps) => {
                 className="data-row grid gap-4 p-4 text-sm hover:bg-neon-cyan/5" 
                 style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}
               >
-                <div className="font-medium text-foreground whitespace-nowrap">
-                  {client.Clients}
+                <div className="font-medium text-foreground overflow-hidden">
+                  <div className="truncate pr-2">{client.Clients}</div>
                 </div>
                 <div className="flex justify-center text-neon-cyan font-mono">
                   {client['No. of Headshots']}
