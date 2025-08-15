@@ -35,46 +35,48 @@ export const DataTable = ({ data }: DataTableProps) => {
         </p>
       </div>
       
-      <div className="data-grid overflow-x-auto">
-        <div className="grid grid-cols-5 gap-4 p-4 font-semibold text-sm text-neon-purple border-b border-border min-w-[600px]">
-          <div>Client</div>
-          <div>Headshots</div>
-          <div>Price</div>
-          <div>Status</div>
-          <div>Email</div>
-        </div>
-        
-        <div className="max-h-96 overflow-y-auto">
-          {data.map((client, index) => (
-            <div 
-              key={index} 
-              className="data-row grid grid-cols-5 gap-4 p-4 text-sm hover:bg-neon-cyan/5 min-w-[600px]"
-            >
-              <div className="font-medium text-foreground truncate">
-                {client.Clients}
+      <div className="overflow-x-auto">
+        <div className="data-grid min-w-[600px]">
+          <div className="grid grid-cols-5 gap-4 p-4 font-semibold text-sm text-neon-purple border-b border-border">
+            <div>Client</div>
+            <div>Headshots</div>
+            <div>Price</div>
+            <div>Status</div>
+            <div>Email</div>
+          </div>
+          
+          <div className="max-h-96 overflow-y-auto">
+            {data.map((client, index) => (
+              <div 
+                key={index} 
+                className="data-row grid grid-cols-5 gap-4 p-4 text-sm hover:bg-neon-cyan/5"
+              >
+                <div className="font-medium text-foreground truncate">
+                  {client.Clients}
+                </div>
+                <div className="text-neon-cyan font-mono">
+                  {client['No. of Headshots']}
+                </div>
+                <div className="text-neon-green font-mono">
+                  {formatPrice(client.Price)}
+                </div>
+                <div>
+                  <Badge 
+                    variant="outline" 
+                    className={cn(
+                      "border-0 font-mono text-xs",
+                      getStatusVariant(client.Status)
+                    )}
+                  >
+                    {client.Status}
+                  </Badge>
+                </div>
+                <div className="text-muted-foreground truncate font-mono text-xs">
+                  {client.Email}
+                </div>
               </div>
-              <div className="text-neon-cyan font-mono">
-                {client['No. of Headshots']}
-              </div>
-              <div className="text-neon-green font-mono">
-                {formatPrice(client.Price)}
-              </div>
-              <div>
-                <Badge 
-                  variant="outline" 
-                  className={cn(
-                    "border-0 font-mono text-xs",
-                    getStatusVariant(client.Status)
-                  )}
-                >
-                  {client.Status}
-                </Badge>
-              </div>
-              <div className="text-muted-foreground truncate font-mono text-xs">
-                {client.Email}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </Card>
