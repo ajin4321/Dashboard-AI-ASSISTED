@@ -12,9 +12,9 @@ export const StatusDistribution = ({ data }: StatusDistributionProps) => {
       const status = client.Status.toLowerCase();
       let normalizedStatus = 'Other';
       
-      if (status.includes('active') || status.includes('completed')) {
-        normalizedStatus = 'Active';
-      } else if (status.includes('pending') || status.includes('progress')) {
+      if (status.includes('delivered') || status.includes('completed')) {
+        normalizedStatus = 'Completed';
+      } else if (status.includes('inprogress') || status.includes('progress')) {
         normalizedStatus = 'Pending';
       } else if (status.includes('inactive') || status.includes('cancelled')) {
         normalizedStatus = 'Inactive';
@@ -34,7 +34,7 @@ export const StatusDistribution = ({ data }: StatusDistributionProps) => {
   const statusData = processStatusData();
   
   const COLORS = {
-    'Active': 'hsl(var(--neon-green))',
+    'Completed': 'hsl(var(--neon-green))',
     'Pending': 'hsl(var(--neon-yellow))',
     'Inactive': 'hsl(var(--muted-foreground))',
     'Other': 'hsl(var(--neon-pink))'
