@@ -93,7 +93,7 @@ export const DataTable = ({ data }: DataTableProps) => {
                   </Badge>
                 </div>
                 <div className="col-span-2 flex items-center text-muted-foreground font-mono text-xs">
-                  <div className="truncate">{client.Email}</div>
+                  <div className="overflow-x-auto">{client.Email}</div>
                 </div>
               </div>
             ))}
