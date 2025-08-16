@@ -1,6 +1,15 @@
+import { useState } from 'react';
 import { ClientData } from '@/hooks/useGoogleSheets';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { 
+  Pagination, 
+  PaginationContent, 
+  PaginationItem, 
+  PaginationLink, 
+  PaginationNext, 
+  PaginationPrevious 
+} from '@/components/ui/pagination';
 import { cn } from '@/lib/utils';
 
 interface DataTableProps {
@@ -8,6 +17,15 @@ interface DataTableProps {
 }
 
 export const DataTable = ({ data }: DataTableProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = data.slice(startIndex, endIndex);
+  const shouldShowPagination = data.length > 10;
+
   const getStatusVariant = (status: string) => {
     const statusLower = status.toLowerCase();
     if (statusLower.includes('active') || statusLower.includes('completed')) {
@@ -66,8 +84,8 @@ export const DataTable = ({ data }: DataTableProps) => {
           </div>
           
           {/* Table Body */}
-          <div className="max-h-96 overflow-y-auto">
-            {data.map((client, index) => (
+          <div className="overflow-y-auto">
+            {currentData.map((client, index) => (
               <div 
                 key={index} 
                 className="grid grid-cols-12 gap-4 px-6 py-3 text-sm hover:bg-neon-cyan/5 border-b border-border/50 last:border-b-0"
@@ -100,6 +118,52 @@ export const DataTable = ({ data }: DataTableProps) => {
           </div>
         </div>
       </div>
+      
+      {/* Pagination */}
+      {shouldShowPagination && (
+        <div className="px-6 py-4 border-t border-border bg-card/30">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious 
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (currentPage > 1) setCurrentPage(currentPage - 1);
+                  }}
+                  className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                />
+              </PaginationItem>
+              
+              {[...Array(totalPages)].map((_, i) => (
+                <PaginationItem key={i + 1}>
+                  <PaginationLink
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentPage(i + 1);
+                    }}
+                    isActive={currentPage === i + 1}
+                  >
+                    {i + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              
+              <PaginationItem>
+                <PaginationNext 
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                  }}
+                  className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      )}
     </Card>
   );
 };
