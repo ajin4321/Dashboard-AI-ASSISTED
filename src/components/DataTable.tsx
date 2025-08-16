@@ -25,43 +25,63 @@ export const DataTable = ({ data }: DataTableProps) => {
   };
 
   return (
-    <Card className="glass-card p-0 overflow-hidden">
-      <div className="p-6 border-b border-border">
-        <h3 className="text-xl font-bold font-orbitron text-neon-cyan">
-          Client Database
-        </h3>
-        <p className="text-sm text-muted-foreground mt-1">
-          Real-time data from Google Sheets
-        </p>
+    <Card className="glass-card overflow-hidden">
+      {/* Header Section */}
+      <div className="px-6 py-5 border-b border-border bg-card/50">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-xl font-bold font-orbitron text-neon-cyan">
+              Client Database
+            </h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              Real-time data from Google Sheets
+            </p>
+          </div>
+          <div className="text-sm text-muted-foreground">
+            {data.length} clients
+          </div>
+        </div>
       </div>
       
+      {/* Table Section */}
       <div className="overflow-x-auto">
-        <div className="data-grid min-w-[600px]">
-          <div className="grid gap-6 md:gap-8 lg:gap-12 p-4 md:p-6 lg:p-8 font-semibold text-sm text-neon-purple border-b border-border" style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}>
-            <div className="px-2 md:px-4">Client</div>
-            <div className="text-center">Headshots</div>
-            <div className="md:px-2">Price</div>
-            <div className="text-center">Status</div>
-            <div className="md:px-2">Email</div>
+        <div className="min-w-[700px]">
+          {/* Table Header */}
+          <div className="grid grid-cols-12 gap-4 px-6 py-4 bg-muted/30 border-b border-border font-semibold text-sm text-neon-purple">
+            <div className="col-span-4 flex items-center">
+              Client Name
+            </div>
+            <div className="col-span-2 flex items-center justify-center">
+              Headshots
+            </div>
+            <div className="col-span-2 flex items-center">
+              Price
+            </div>
+            <div className="col-span-2 flex items-center justify-center">
+              Status
+            </div>
+            <div className="col-span-2 flex items-center">
+              Email
+            </div>
           </div>
           
+          {/* Table Body */}
           <div className="max-h-96 overflow-y-auto">
             {data.map((client, index) => (
               <div 
                 key={index} 
-                className="data-row grid gap-4 p-4 text-sm hover:bg-neon-cyan/5" 
-                style={{ gridTemplateColumns: '1fr 120px 100px 100px 1fr' }}
+                className="grid grid-cols-12 gap-4 px-6 py-3 text-sm hover:bg-neon-cyan/5 border-b border-border/50 last:border-b-0"
               >
-                <div className="font-medium text-foreground overflow-hidden">
+                <div className="col-span-4 font-medium text-foreground flex items-center">
                   <div className="truncate pr-2">{client.Clients}</div>
                 </div>
-                <div className="flex justify-center text-neon-cyan font-mono">
+                <div className="col-span-2 flex items-center justify-center text-neon-cyan font-mono">
                   {client['No. of Headshots']}
                 </div>
-                <div className="text-neon-green font-mono">
+                <div className="col-span-2 flex items-center text-neon-green font-mono">
                   {formatPrice(client.Price)}
                 </div>
-                <div className="flex justify-center">
+                <div className="col-span-2 flex items-center justify-center">
                   <Badge 
                     variant="outline" 
                     className={cn(
@@ -72,8 +92,8 @@ export const DataTable = ({ data }: DataTableProps) => {
                     {client.Status}
                   </Badge>
                 </div>
-                <div className="text-muted-foreground overflow-x-auto font-mono text-xs">
-                  {client.Email}
+                <div className="col-span-2 flex items-center text-muted-foreground font-mono text-xs">
+                  <div className="truncate">{client.Email}</div>
                 </div>
               </div>
             ))}
