@@ -65,7 +65,10 @@ export const DataTable = ({ data }: DataTableProps) => {
       <div className="overflow-x-auto">
         <div className="min-w-[700px]">
           {/* Table Header */}
-          <div className="grid grid-cols-12 gap-4 px-6 py-4 bg-muted/30 border-b border-border font-semibold text-sm text-neon-purple">
+          <div className="grid grid-cols-13 gap-4 px-6 py-4 bg-muted/30 border-b border-border font-semibold text-sm text-neon-purple">
+            <div className="col-span-1 flex items-center justify-center">
+              Id
+            </div>
             <div className="col-span-4 flex items-center">
               Client Name
             </div>
@@ -85,36 +88,42 @@ export const DataTable = ({ data }: DataTableProps) => {
           
           {/* Table Body */}
           <div className="overflow-y-auto">
-            {currentData.map((client, index) => (
-              <div 
-                key={index} 
-                className="grid grid-cols-12 gap-4 px-6 py-3 text-sm hover:bg-neon-cyan/5 border-b border-border/50 last:border-b-0"
-              >
-                <div className="col-span-4 font-medium text-foreground flex items-center">
-                  <div className="truncate pr-2">{client.Clients}</div>
+            {currentData.map((client, index) => {
+              const clientId = (currentPage - 1) * itemsPerPage + index + 1;
+              return (
+                <div 
+                  key={index} 
+                  className="grid grid-cols-13 gap-4 px-6 py-3 text-sm hover:bg-neon-cyan/5 border-b border-border/50 last:border-b-0"
+                >
+                  <div className="col-span-1 flex items-center justify-center text-muted-foreground font-mono text-xs">
+                    {clientId}
+                  </div>
+                  <div className="col-span-4 font-medium text-foreground flex items-center">
+                    <div className="truncate pr-2">{client.Clients}</div>
+                  </div>
+                  <div className="col-span-2 flex items-center justify-center text-neon-cyan font-mono">
+                    {client['No. of Headshots']}
+                  </div>
+                  <div className="col-span-2 flex items-center text-neon-green font-mono">
+                    {formatPrice(client.Price)}
+                  </div>
+                  <div className="col-span-2 flex items-center justify-center">
+                    <Badge 
+                      variant="outline" 
+                      className={cn(
+                        "border-0 font-mono text-xs",
+                        getStatusVariant(client.Status)
+                      )}
+                    >
+                      {client.Status}
+                    </Badge>
+                  </div>
+                  <div className="col-span-2 flex items-center text-muted-foreground font-mono text-xs">
+                    <div className="overflow-x-auto">{client.Email}</div>
+                  </div>
                 </div>
-                <div className="col-span-2 flex items-center justify-center text-neon-cyan font-mono">
-                  {client['No. of Headshots']}
-                </div>
-                <div className="col-span-2 flex items-center text-neon-green font-mono">
-                  {formatPrice(client.Price)}
-                </div>
-                <div className="col-span-2 flex items-center justify-center">
-                  <Badge 
-                    variant="outline" 
-                    className={cn(
-                      "border-0 font-mono text-xs",
-                      getStatusVariant(client.Status)
-                    )}
-                  >
-                    {client.Status}
-                  </Badge>
-                </div>
-                <div className="col-span-2 flex items-center text-muted-foreground font-mono text-xs">
-                  <div className="overflow-x-auto">{client.Email}</div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
