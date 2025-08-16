@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { ClientData } from '@/hooks/useGoogleSheets';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Pagination, 
-  PaginationContent, 
-  PaginationItem, 
-  PaginationLink, 
-  PaginationNext, 
-  PaginationPrevious 
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
 } from '@/components/ui/pagination';
 import { cn } from '@/lib/utils';
 
@@ -19,7 +19,7 @@ interface DataTableProps {
 export const DataTable = ({ data }: DataTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  
+
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -60,37 +60,39 @@ export const DataTable = ({ data }: DataTableProps) => {
           </div>
         </div>
       </div>
-      
+
       {/* Table Section */}
       <div className="overflow-x-auto">
         <div className="min-w-[700px]">
           {/* Table Header */}
           <div className="grid grid-cols-12 gap-4 px-6 py-4 bg-muted/30 border-b border-border font-semibold text-sm text-neon-purple">
-            <div className="col-span-4 flex items-center">
-              Client Name
-            </div>
+            {/* CHANGE: Added ID column header */}
+            <div className="col-span-1 flex items-center">ID</div>
+            {/* CHANGE: Adjusted Client Name column span from 4 to 3 */}
+            <div className="col-span-3 flex items-center">Client Name</div>
             <div className="col-span-2 flex items-center justify-center">
               Headshots
             </div>
-            <div className="col-span-2 flex items-center">
-              Price
-            </div>
+            <div className="col-span-2 flex items-center">Price</div>
             <div className="col-span-2 flex items-center justify-center">
               Status
             </div>
-            <div className="col-span-2 flex items-center">
-              Email
-            </div>
+            <div className="col-span-2 flex items-center">Email</div>
           </div>
-          
+
           {/* Table Body */}
           <div className="overflow-y-auto">
             {currentData.map((client, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="grid grid-cols-12 gap-4 px-6 py-3 text-sm hover:bg-neon-cyan/5 border-b border-border/50 last:border-b-0"
               >
-                <div className="col-span-4 font-medium text-foreground flex items-center">
+                {/* CHANGE: Added ID column data for each row */}
+                <div className="col-span-1 flex items-center text-muted-foreground font-mono">
+                  {startIndex + index + 1}
+                </div>
+                {/* CHANGE: Adjusted Client Name column span from 4 to 3 */}
+                <div className="col-span-3 font-medium text-foreground flex items-center">
                   <div className="truncate pr-2">{client.Clients}</div>
                 </div>
                 <div className="col-span-2 flex items-center justify-center text-neon-cyan font-mono">
@@ -100,10 +102,10 @@ export const DataTable = ({ data }: DataTableProps) => {
                   {formatPrice(client.Price)}
                 </div>
                 <div className="col-span-2 flex items-center justify-center">
-                  <Badge 
-                    variant="outline" 
+                  <Badge
+                    variant="outline"
                     className={cn(
-                      "border-0 font-mono text-xs",
+                      'border-0 font-mono text-xs',
                       getStatusVariant(client.Status)
                     )}
                   >
@@ -118,23 +120,25 @@ export const DataTable = ({ data }: DataTableProps) => {
           </div>
         </div>
       </div>
-      
+
       {/* Pagination */}
       {shouldShowPagination && (
         <div className="px-6 py-4 border-t border-border bg-card/30">
           <Pagination>
             <PaginationContent>
               <PaginationItem>
-                <PaginationPrevious 
+                <PaginationPrevious
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
                     if (currentPage > 1) setCurrentPage(currentPage - 1);
                   }}
-                  className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                  className={
+                    currentPage === 1 ? 'pointer-events-none opacity-50' : ''
+                  }
                 />
               </PaginationItem>
-              
+
               {[...Array(totalPages)].map((_, i) => (
                 <PaginationItem key={i + 1}>
                   <PaginationLink
@@ -149,15 +153,18 @@ export const DataTable = ({ data }: DataTableProps) => {
                   </PaginationLink>
                 </PaginationItem>
               ))}
-              
+
               <PaginationItem>
-                <PaginationNext 
+                <PaginationNext
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                    if (currentPage < totalPages)
+                      setCurrentPage(currentPage + 1);
                   }}
-                  className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                  className={ 
+                    currentPage === totalPages ? 'pointer-events-none opacity-50': ''
+                  }
                 />
               </PaginationItem>
             </PaginationContent>
