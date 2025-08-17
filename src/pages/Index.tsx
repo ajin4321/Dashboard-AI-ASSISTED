@@ -44,23 +44,25 @@ const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/1P7KRL_iTk
   }, [data]);
 
   const handleRefresh = async () => {
-    setRefreshing(true);
-    try {
-      await refetch();
-      toast({
-        title: "Data Refreshed",
-        description: "Successfully updated dashboard data from Google Sheets",
-      });
-    } catch (error) {
-      toast({
-        title: "Refresh Failed",
-        description: "Failed to refresh data. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setRefreshing(false);
-    }
-  };
+  setRefreshing(true);
+  try {
+    await refetch();
+    toast({
+      title: "Data Refreshed",
+      description: "Successfully updated dashboard data from Google Sheets",
+      duration: 2000, // Closes after 3 seconds
+    });
+  } catch (error) {
+    toast({
+      title: "Refresh Failed",
+      description: "Failed to refresh data. Please try again.",
+      variant: "destructive",
+      duration: 5000, // Closes after 5 seconds
+    });
+  } finally {
+    setRefreshing(false);
+  }
+};
 
   if (loading) {
     return (

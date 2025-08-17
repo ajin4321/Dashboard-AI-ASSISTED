@@ -82,6 +82,7 @@ export const ChatBot = ({ onDataUpdate }: ChatBotProps) => {
         toast({
           title: "Dashboard Updated",
           description: "Data has been refreshed based on chatbot response",
+          duration: 2000, // Closes after 3 seconds
         });
       }
 
@@ -101,6 +102,7 @@ export const ChatBot = ({ onDataUpdate }: ChatBotProps) => {
         title: "Connection Error",
         description: "Failed to connect to webhook service",
         variant: "destructive",
+        duration: 2000, // Closes after 5 seconds
       });
     } finally {
       setIsLoading(false);
